@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Shopify.Web.ViewModels.ShoppingLists.AllShoppingListsViewModel>
+@{
+    this.ViewData["Title"] = "My shopping lists";
+}
+
+@if (this.TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-success" role="alert">
+        @this.TempData["Message"]
+    </div>
+}
+
+<h1 class="text-center">@this.ViewData["Title"]</h1>
+<a class="btn btn-success" asp-controller="ShoppingLists" asp-action="Create">Create</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var shoppingList in this.Model)
+        {
+            <tr>
+                <td>@shoppingList.Id</td>
+                <td>@shoppingList.Name</td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Products" asp-action="AllByShoppingList" asp-route-shoppingListId="@shoppingList.Id">Products</a>
+                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@shoppingList.Id">Edit</a>
+                    <form asp-action="Delete" asp-route-id="@shoppingList.Id" method="post">
+                        <input type="submit" class="btn btn-danger" value="Delete" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Shopify.Web.ViewModels.Products.AllProductsViewModel>
+@{
+    this.ViewData["Title"] = "View all products";
+}
+
+@if (this.TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-success" role="alert">
+        @this.TempData["Message"]
+    </div>
+}
+
+<h1 class="text-center">@this.ViewData["Title"]</h1>
+<a class="btn btn-success" asp-controller="Products" asp-action="Create">Create</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in this.Model)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>@product.Description</td>
+                <td>@product.Price.ToString("f2")</td>
+                <td>@product.CategoryName</td>
+                <td>
+                    <a class="btn btn-primary" asp-action="AddToShoppingList" asp-route-productId="@product.Id">Add to list</a>
+                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
+                    <form asp-action="Delete" asp-route-id="@product.Id" method="post">
+                        <input type="submit" class="btn btn-danger" value="Delete" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

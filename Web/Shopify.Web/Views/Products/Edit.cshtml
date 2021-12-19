@@ -1,0 +1,36 @@
+﻿@model Shopify.Web.ViewModels.Products.EditProductInputModel
+@{
+    this.ViewData["Title"] = "Edit Product";
+}
+
+<h1 class="text-center">@this.ViewData["Title"]</h1>
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CategoryId"></label>
+        <select asp-for="CategoryId" asp-items="@this.Model.CategoryItems" class="form-control"></select>
+    </div>
+
+    <input type="hidden" asp-for="Id" />
+
+    <input type="submit" class="btn btn-success" value="Edit" />
+</form>

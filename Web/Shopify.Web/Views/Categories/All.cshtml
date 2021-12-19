@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Shopify.Web.ViewModels.Categories.AllCategoriesViewModel>
+@{
+    this.ViewData["Title"] = "View all categories";
+}
+
+@if (this.TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-success" role="alert">
+        @this.TempData["Message"]
+    </div>
+}
+
+<h1 class="text-center">@this.ViewData["Title"]</h1>
+<a class="btn btn-success" asp-controller="Categories" asp-action="Create">Create</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in this.Model)
+        {
+            <tr>
+                <td>@category.Id</td>
+                <td>@category.Name</td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Products" asp-action="AllByCategory" asp-route-categoryId="@category.Id">Products</a>
+                    <button class="btn btn-warning" asp-action="Edit" asp-route-id="@category.Id">Edit</button>
+                    <form asp-action="Delete" asp-route-id="@category.Id" method="post">
+                        <input type="submit" class="btn btn-danger" value="Delete" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
